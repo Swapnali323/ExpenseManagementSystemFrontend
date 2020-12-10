@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <h1 align="center">Project Registeration!</h1>
+<div>
+  <form class="form-horizontal" #addprojectForm="ngForm" (submit)='addProject(addprojectForm)'>
+      <div class="form-group">
+      <label class="control-label col-sm-2" for="description">Enter Project Description:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="description" placeholder="Enter Project Description..."
+        name="desc" #desc="ngModel" [(ngModel)]="description" pattern="[a-zA-Z_]+" required>
+        <span *ngIf='!desc.valid && desc.dirty && desc.touched'>
+          <p style="color: red">enter PROJECT DESCRIPTION as combination of uppercase,lowercase alphabets and underscores!</p>
+      </span>
+      <span *ngIf='!desc.valid && !desc.untouched && desc.pristine'>
+          <p style="color: red">PROJECT DESCRIPTION cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="DOB">Enter Project Start Date:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="start" placeholder="yyyy-mm-dd"
+        name="start" #start="ngModel" [(ngModel)]="startDate" pattern="\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])" required>
+        <span *ngIf='!start.valid && start.dirty && start.touched'>
+          <p style="color: red">enter START DATE in format YYYY-MM-DD!</p>
+      </span>
+      <span *ngIf='!start.valid && !start.untouched && start.pristine'>
+          <p style="color: red">START DATE cannot be empty!</p>
+      </span>
+      </div>
+      
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="DOJ">Enter Project End Date:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="end" placeholder="yyyy/mm/dd"
+        name="end" #end="ngModel" [(ngModel)]="endDate" pattern="\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])" required (focusout)="validateDOJDOB()">
+        <span *ngIf='!end.valid && end.dirty && end.touched'>
+          <p style="color: red">enter END DATE in format YYYY-MM-DD!</p>
+      </span>
+      <span *ngIf='!end.valid && !end.untouched && end.pristine'>
+          <p style="color: red">END DATE cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <i class="fa fa-user-plus"></i>
+        
+                <input type="submit"  [disabled]='!addprojectForm.valid'  name="add" class="btn btn-success" value="Add Project"/>
+                &nbsp;&nbsp;
+                <input type="reset"  name="reset" class="btn btn-danger" value="Reset" />
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

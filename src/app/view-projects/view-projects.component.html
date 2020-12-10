@@ -1,0 +1,164 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      .my-pagination /deep/ .ngx-pagination .current {
+        background: #17a2b8 !important;
+        border: transparent;
+          border-radius: 20px;
+      }
+      :host /deep/.ngx-pagination .current:hover {
+  background: red !important;
+  border-radius: 20px;
+  border: transparent;
+  }
+  .clearfix {
+  position:relative;
+  right: 15%;
+  left: 0%;
+  font-size: 16px;
+  }
+    </style>
+  </head>
+  <!--refrence
+    <input type="text" class="form-control" placeholder="What are you looking for?" name="genre" [(ngModel)]="genre">
+    <div class="input-group-btn">
+    <button  class="btn btn-default" type="submit" (click)="getByMoviesGenre()">
+    <i class="glyphicon glyphicon-search"></i>
+    </button>-->
+  <body>
+      
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <form class="navbar-form navbar-left" #viewForm="ngForm" (submit)='searchProject(viewForm)'>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search Project By ID" name="eid"
+             #eid="ngModel" [(ngModel)]="projectid" pattern="[0-9]+" maxlength="10" required>
+            <div class="input-group-btn">
+              <button  class="btn btn-default" type="submit">
+                  <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+          <span *ngIf='!eid.valid && eid.dirty && !eid.touched'>
+            <p style="color: red">only numeric values allowed!</p>
+        </span>
+        <span *ngIf='!eid.valid && !eid.untouched && eid.pristine'>
+          <p style="color: red">only numeric values allowed!</p>
+      </span>
+        </form>
+      </div>
+    </nav>
+
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <form class="navbar-form navbar-left">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search By Description" name="ename" 
+             #ename="ngModel" [(ngModel)]="description" (keyup)="searchProjectByDesc(ename.value)" pattern="[a-zA-Z ]+"  required>
+           
+          </div>
+          <span *ngIf='!ename.valid && ename.dirty && ename.touched'>
+            <p style="color: red">numeric values not allowed!</p>
+        </span>
+        
+        </form>
+      </div>
+    </nav>
+
+      <h1 align="center">List Of All Projects!</h1>
+    <div>
+      <table border="2">
+        <tr class="trow">
+          <td>Project Code</td>
+          <td>Project Description</td>
+          <td>Start Date</td>
+          <td>End Date</td>
+          <td>Update</td>
+          <td>Delete</td>
+        </tr>
+        <tr class="sample" *ngFor="let project of projects | paginate: { itemsPerPage: 6, currentPage: p }">
+          <td><b>{{project.projectCode}}</b></td>
+          <td><b>{{project.description}}</b></td>
+          <td><b>{{project.projectStartDate}}</b></td>
+          <td><b>{{project.projectEndDate}}</b></td>
+          <td><button style="padding: 10px 10px;" (click)='projectClass.projectStartDate=project.projectStartDate;
+            projectClass.projectEndDate=project.projectEndDate;projectClass.projectCode=project.projectCode;projectClass.description=project.description;' name="update"  data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-edit"></span></button></td>
+          <td><button style="padding: 10px 10px;" class="btn" name="delete"><i class="fa fa-trash" (click)='deleteProject(project.projectCode)'></i></button></td>
+      </tr>
+      <div class="clearfix">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls></div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <form class="form-horizontal" #updateprojectForm="ngForm" (submit)='updateProject(updateprojectForm)'>
+               
+                <h1 align="center">Update Project Details!</h1>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="description">Project Code:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="code" placeholder="Enter Project code..."
+                    name="code" #code="ngModel" [(ngModel)]='projectClass.projectCode'  readonly required>
+                  
+                  </div>
+                </div>
+                <div class="form-group">
+                <label class="control-label col-sm-2" for="description">Project Description:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="description" placeholder="Enter Project Description..."
+                  name="desc" #desc="ngModel" [(ngModel)]='projectClass.description'  required>
+                
+                <span *ngIf='!desc.valid && desc.touched'>
+                    <p style="color: red">PROJECT DESCRIPTION cannot be empty!</p>
+                </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="DOB">Project Start Date:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="start" placeholder="yyyy-mm-dd"
+                  name="start" #start="ngModel" [(ngModel)]='projectClass.projectStartDate' readonly required>
+                 
+               
+                </div>
+                
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="DOJ">Project End Date:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="end" placeholder="yyyy/mm/dd"
+                  name="end" #end="ngModel" [(ngModel)]='projectClass.projectEndDate' readonly required >
+                 
+              
+                </div>
+              </div>
+              <div class="form-group">        
+                <div class="col-sm-offset-2 col-sm-10">
+                  <i class="fal fa-user-tag">                  
+                          <input type="submit"  [disabled]='!updateprojectForm.valid'  name="add" class="btn btn-primary" value="Update Project"/>
+                          &nbsp;&nbsp;</i>
+
+                         
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+
+
+
+
+      </table> 
+    </div>  
+  </body>

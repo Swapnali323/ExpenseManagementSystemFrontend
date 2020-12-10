@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1 align="center">Claim Expense!</h1>
+<div>
+  <form class="form-horizontal" #claimForm="ngForm" (submit)='addExpClaim(claimForm)'>
+    <div class="col-xs-8">
+      <b>Employee Id: </b><input type="number" name="employeeid" (focusout)="loademployeeids(employeeid.value)" #employeeid="ngModel" [(ngModel)]="employeeId"
+      class="form-control" required /><br>
+  </div>
+  <div *ngFor="let employee of reemployees">
+  Employee Name:{{employee.name}}<br>
+  Pan Id:{{employee.panid}}<br>
+  Date of joining:{{employee.doj}}<br>
+  Designation:{{employee.designation}}<br>
+ 
+  </div>
+  <div class="col-xs-8">
+   <b> Select Project Code:</b> <select id="projcode" name="projectcode" (ngModelChange)="loadprojectids(projectcode.value)" #projectcode="ngModel" [(ngModel)]="projectCode"
+        class="form-control" required>
+        <option *ngFor="let project of projects" value= {{project.projectCode}}>
+            {{project.projectCode}}
+        </option>
+        
+    </select>
+    <div *ngFor="let project of reprojects">
+        Project Description:{{project.description}}<br>
+        Start Date:{{project.projectStartDate}}<br>
+        End Date:{{project.projectEndDate}}
+    </div>
+<br>
+
+</div>
+<div class="col-xs-8">
+  <b>Select Expense Code: </b> <select id="expcode" name="expensecode" (ngModelChange)="loadexpenseids(expensecode.value)" #expensecode="ngModel" [(ngModel)]="expenseCode"
+      class="form-control" required>
+      <option *ngFor="let expense of expenses" value= {{expense.expenseCode}}>
+          {{expense.expenseCode}}
+      </option>
+  </select>
+  <div *ngFor="let expense of reexpenses">
+      Expense Type:{{expense.expenseType}}<br>
+      Expense description:{{expense.description}}
+  </div>
+  <br>
+</div>
+
+
+
+<div class="col-xs-8">
+  <b>Amount:</b> <input type="number" name="amount"  #amount="ngModel" [(ngModel)]="Amount"
+  class="form-control" required />
+  <span *ngIf='!amount.valid && amount.touched'>
+    <p style="color: red">Enter Amount</p>
+</span>
+<br>
+</div>
+<div class="form-group">        
+  <div class="col-sm-offset-2 col-sm-10">
+    <i class="fa fa-user-plus"></i>
+    
+            <input type="submit"  [disabled]='!claimForm.valid'  name="add" class="btn btn-success" value="Claim Expense"/>
+            &nbsp;&nbsp;
+            <input type="reset"  name="reset" class="btn btn-danger" value="Reset" />
+  </div>
+</div>
+  </form>
+</div>
+
+</body>
+</html>

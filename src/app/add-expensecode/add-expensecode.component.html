@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1 align="center">Add Expense!</h1>
+<div>
+  <form class="form-horizontal" #addexpenseForm="ngForm" (submit)='addExpense(addexpenseForm)'>
+    <div class="col-xs-8">
+      <label class="control-label col-sm-2" for="type">Enter Expense Type:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="type" placeholder="Enter expense type..."
+        name="type" #type="ngModel" [(ngModel)]="expenseType" pattern="[A-Z]+[a-zA-Z]*" minlength="3" maxlength="15" required>
+        <span *ngIf='!type.valid && type.touched  && type.dirty'>
+          <p style="color: red">EXPENSE TYPE must start with capital character, should only contain alphabet ,
+            should contain minimum 3 and maximum 15 characters !</p>
+      </span>
+      <span *ngIf='!type.valid && !type.untouched && type.pristine'>
+          <p style="color: red">EXPENSE TYPE cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="col-xs-8">
+      <label class="control-label col-sm-2" for="desc">Enter Expense Description:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="desc" placeholder="Enter expense description..."
+        name="desc" #desc="ngModel" [(ngModel)]="description" pattern="^[a-zA-Z0-9_]*$" minlength="15" maxlength="100"  required>
+        <span *ngIf='!desc.valid && desc.dirty && desc.touched'>
+          <p style="color: red">EXPENSE Description should be combination of alphabets, 
+            digits and underscores and it should contain minimum 15 and maximum 100 characters!</p>
+      </span>
+      <span *ngIf='!desc.valid && !desc.untouched && desc.pristine'>
+          <p style="color: red">EXPENSE DESCRIPTION name cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <i class="fa fa-user-plus"></i>
+        
+                <input type="submit"  [disabled]='!addexpenseForm.valid'  name="add" class="btn btn-success" value="Add Expense"/>
+                &nbsp;&nbsp;
+                <input type="reset"  name="reset" class="btn btn-danger" value="Reset" />
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

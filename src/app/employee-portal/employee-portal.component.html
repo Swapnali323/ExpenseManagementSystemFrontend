@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/employee-portal"><i class="fas fa-users"></i>&nbsp;Employees Portal</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a [routerLink]="['/employee-portal/claim-expense']">Claim an Expense</a></li>
+        <li><a [routerLink]="['/employee-portal/search-expenseeclaim']">View All Expense Claims</a></li>
+        <li><a [routerLink]="['/employee-portal/claim-status']">View Claim Status</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a >Logged in user {{user}} &nbsp;<i class="far fa-user"></i></a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a routerLink="/home" (click)='Destroy()'><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="padding:1px 16px;height:500px;">
+    <router-outlet></router-outlet>
+</div>
+
+</body>
+</html>

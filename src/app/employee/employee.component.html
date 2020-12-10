@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 20;
+  background-color:white;
+  position: fixed;
+  height: 80%;
+  overflow: auto;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+</style>
+</head>
+<body>
+<ul>
+  <li><a [routerLink]="['/admin-portal/employee/add-employee']" data-toggle="tooltip" data-placement="right" title="Add Employee"><i class="fas fa-user-plus"></i></a></li>
+  <li><a [routerLink]="['/admin-portal/employee/view-employee']" data-toggle="tooltip" data-placement="right" title="View Employees"><i class="fas fa-binoculars"></i></a></li>
+  <li><a [routerLink]="['/admin-portal/employee/projectwise-employee']" data-toggle="tooltip" data-placement="right" title="Projectwise Employees Search"><i class="fas fa-search"></i></a></li>
+</ul>
+
+<div style="margin-left:10%;padding:1px 16px;height:500px;">
+  <router-outlet></router-outlet>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "ExpenseManagementSystemSprint2": {
@@ -89,6 +89,7 @@
             ],
             "styles": [
               "src/styles.css"
+              
             ],
             "scripts": []
           }
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ExpenseManagementSystemSprint2"
+    }
+  },
+  "defaultProject": "ExpenseManagementSystemSprint2",
+  "cli": {
+    "analytics": "16dde9c4-258a-4e5c-a52e-88f942684a8e"
+  }
 }

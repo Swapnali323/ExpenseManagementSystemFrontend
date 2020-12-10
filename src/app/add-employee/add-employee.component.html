@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <h1 align="center">Employee Registeration!</h1>
+<div>
+  <form class="form-horizontal" #addemployeeForm="ngForm" (submit)='addEmployee(addemployeeForm)'>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="employeeName">Enter Employee Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control"  id="employeename" placeholder="Enter employee name..."
+        name="employeename" #employeename="ngModel" [(ngModel)]="employeeName" pattern="[a-zA-Z ]+" required>
+        <span *ngIf='!employeename.valid && employeename.dirty && employeename.touched'>
+          <p style="color: red">enter EMPLOYEE NAME as combination of uppercase,lowercase alphabets and whitespaces!</p>
+      </span>
+      <span *ngIf='!employeename.valid && !employeename.untouched && employeename.pristine'>
+          <p style="color: red">EMPLOYEE NAME cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="employeePAN">Enter Employee PAN:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="employeePAN" placeholder="Enter employee PAN..."
+        name="panid" #panid="ngModel" [(ngModel)]="PANid" pattern="[A-Z0-9]+" maxlength="8"  required>
+        <span *ngIf='!panid.valid && panid.dirty && panid.touched'>
+          <p style="color: red">enter PANID as combination of uppercase alphabets & digits!</p>
+      </span>
+      <span *ngIf='!panid.valid && !panid.untouched && panid.pristine'>
+          <p style="color: red">PANID name cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="employeeDesignation">Enter Employee designation:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="employeeDesignation" placeholder="Enter employee designation..."
+        name="desg" #desg="ngModel" [(ngModel)]="designation" pattern="[a-zA-Z ]+" required>
+        <span *ngIf='!desg.valid && desg.dirty && desg.touched'>
+          <p style="color: red">enter DESIGNATION as combination of uppercase,lowercase alphabets and whitespaces!</p>
+      </span>
+      <span *ngIf='!desg.valid && !desg.untouched && desg.pristine'>
+          <p style="color: red">DESIGNATION cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="employeeDomain">Enter Employee domain:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="employeeDomain" placeholder="Enter employee Domaim..."
+        name="dom" #dom="ngModel" [(ngModel)]="domain" pattern="[a-zA-Z ]+" required>
+        <span *ngIf='!dom.valid && dom.dirty && dom.touched'>
+          <p style="color: red">enter DOMAIN as combination of uppercase,lowercase alphabets and whitespaces!</p>
+      </span>
+      <span *ngIf='!dom.valid && !dom.untouched && dom.pristine'>
+          <p style="color: red">DOMAIN cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="DOB">Enter DOB:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="DOB" placeholder="yyyy-mm-dd"
+        name="dobb" #dobb="ngModel" [(ngModel)]="dob" pattern="\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])" required>
+        <span *ngIf='!dobb.valid && dobb.dirty && dobb.touched'>
+          <p style="color: red">enter DOB in format YYYY-MM-DD!</p>
+      </span>
+      <span *ngIf='!dobb.valid && !dobb.untouched && dobb.pristine'>
+          <p style="color: red">DOB cannot be empty!</p>
+      </span>
+      </div>
+      
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="DOJ">Enter DOJ:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="DOJ" placeholder="yyyy/mm/dd"
+        name="dojj" #dojj="ngModel" [(ngModel)]="doj" pattern="\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])" required (focusout)="validateDOJDOB()">
+        <span *ngIf='!dojj.valid && dojj.dirty && dojj.touched'>
+          <p style="color: red">enter DOJ in format YYYY-MM-DD!</p>
+      </span>
+      <span *ngIf='!dojj.valid && !dojj.untouched && dojj.pristine'>
+          <p style="color: red">DOJ cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="employeeSalary">Enter Employee salary:</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="employeeSalary" placeholder="Enter employee salary..."
+        name="sal" #sal="ngModel" [(ngModel)]="salary" maxlength="12" required>
+        <span *ngIf='!sal.valid && !sal.untouched && sal.pristine'>
+          <p style="color: red">SALARY cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="employeeEmail">Enter Employee email:</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="employeeEmail" placeholder="Enter employee email..."
+        name="eml" #eml="ngModel" [(ngModel)]="email" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" required>
+        <span *ngIf='!eml.valid && eml.dirty && eml.touched'>
+          <p style="color: red">enter valid EMAIL-ID!</p>
+      </span>
+        <span *ngIf='!eml.valid && !eml.untouched && eml.pristine'>
+          <p style="color: red">EMAIL-ID cannot be empty!</p>
+      </span>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" >Select Project Code:</label>  <div class="col-sm-10"><select id="projcode" name="projectcode" (ngModelChange)="loadprojectids(projectcode.value)" #projectcode="ngModel" [(ngModel)]="projectCode"
+          class="form-control" required>
+         
+          <option *ngFor="let project of projects" value= {{project.projectCode}}>
+              {{project.projectCode}}
+          </option>
+       
+      </select>
+       <div *ngFor="let project of reprojects">
+        Project Description:{{project.description}}<br>
+        Start Date:{{project.projectStartDate}}<br>
+        End Date:{{project.projectEndDate}}
+    </div>
+    </div>
+  </div>
+
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <i class="fa fa-user-plus"></i>
+        
+                <input type="submit"  [disabled]='!addemployeeForm.valid'  name="add" class="btn btn-success" value="Add Employee"/>
+                &nbsp;&nbsp;
+                <input type="reset"  name="reset" class="btn btn-danger" value="Reset" />
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
